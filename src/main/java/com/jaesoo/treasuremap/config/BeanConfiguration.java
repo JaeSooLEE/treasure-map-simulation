@@ -1,7 +1,7 @@
 package com.jaesoo.treasuremap.config;
 
 import com.jaesoo.treasuremap.adapter.out.file.FileWriter;
-import com.jaesoo.treasuremap.adapter.out.file.MapLoader;
+import com.jaesoo.treasuremap.adapter.out.file.FileMapLoader;
 import com.jaesoo.treasuremap.application.factory.ExplorerFactory;
 import com.jaesoo.treasuremap.application.factory.ExplorerFactoryImpl;
 import com.jaesoo.treasuremap.application.factory.MapFactory;
@@ -9,11 +9,10 @@ import com.jaesoo.treasuremap.application.factory.MapFactoryImpl;
 import com.jaesoo.treasuremap.application.port.in.ExecuteActionUseCase;
 import com.jaesoo.treasuremap.application.port.in.SimulationRunner;
 import com.jaesoo.treasuremap.application.port.out.FileWriterPort;
-import com.jaesoo.treasuremap.application.port.out.MapLoaderPort;
+import com.jaesoo.treasuremap.application.port.out.FileMapLoaderPort;
 import com.jaesoo.treasuremap.application.service.ExecuteActionUseCaseImpl;
 import com.jaesoo.treasuremap.application.service.SimulationRunnerImpl;
 import jakarta.validation.Validator;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    public MapLoaderPort mapLoaderPort(Validator validator, MapFactory mapFactory) {
-        return new MapLoader(validator, mapFactory);
+    public FileMapLoaderPort mapLoaderPort(Validator validator, MapFactory mapFactory) {
+        return new FileMapLoader(validator, mapFactory);
     }
 
     @Bean
@@ -47,7 +46,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public SimulationRunner simulationRunner(MapLoaderPort mapLoader, FileWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
+    public SimulationRunner simulationRunner(FileMapLoaderPort mapLoader, FileWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
         return new SimulationRunnerImpl(mapLoader, fileWriter, executeActionCase);
     }
 

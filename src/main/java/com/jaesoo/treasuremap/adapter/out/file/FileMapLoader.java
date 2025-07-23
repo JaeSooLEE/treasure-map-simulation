@@ -3,14 +3,11 @@ package com.jaesoo.treasuremap.adapter.out.file;
 import com.jaesoo.treasuremap.adapter.out.file.dto.ExplorerDTO;
 import com.jaesoo.treasuremap.adapter.out.file.dto.MountainDTO;
 import com.jaesoo.treasuremap.adapter.out.file.dto.TreasureDTO;
-import com.jaesoo.treasuremap.application.factory.ExplorerFactory;
 import com.jaesoo.treasuremap.application.factory.MapFactory;
-import com.jaesoo.treasuremap.application.port.out.MapLoaderPort;
+import com.jaesoo.treasuremap.application.port.out.FileMapLoaderPort;
 import com.jaesoo.treasuremap.domain.model.map.TreasureMap;
 import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Valid;
 import jakarta.validation.Validator;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,13 +17,12 @@ import java.util.List;
 import java.util.Set;
 
 
-@Component
-public class MapLoader implements MapLoaderPort {
+public class FileMapLoader implements FileMapLoaderPort {
 
     private final Validator validator;
     private final MapFactory mapFactory;
 
-    public MapLoader(Validator validator, MapFactory mapFactory) {
+    public FileMapLoader(Validator validator, MapFactory mapFactory) {
         this.validator = validator;
         this.mapFactory = mapFactory;
     }

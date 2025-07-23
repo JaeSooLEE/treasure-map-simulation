@@ -3,20 +3,19 @@ package com.jaesoo.treasuremap.application.service;
 import com.jaesoo.treasuremap.application.port.in.ExecuteActionUseCase;
 import com.jaesoo.treasuremap.application.port.in.SimulationRunner;
 import com.jaesoo.treasuremap.application.port.out.FileWriterPort;
-import com.jaesoo.treasuremap.application.port.out.MapLoaderPort;
+import com.jaesoo.treasuremap.application.port.out.FileMapLoaderPort;
 import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import com.jaesoo.treasuremap.domain.model.map.TreasureMap;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimulationRunnerImpl implements SimulationRunner {
 
-    private MapLoaderPort mapLoader;
-    private FileWriterPort fileWriter;
-    private ExecuteActionUseCase executeActionCase;
+    private final FileMapLoaderPort mapLoader;
+    private final FileWriterPort fileWriter;
+    private final ExecuteActionUseCase executeActionCase;
 
-    public SimulationRunnerImpl(MapLoaderPort mapLoader, FileWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
+    public SimulationRunnerImpl(FileMapLoaderPort mapLoader, FileWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
         this.fileWriter = fileWriter;
         this.executeActionCase = executeActionCase;
         this.mapLoader = mapLoader;
