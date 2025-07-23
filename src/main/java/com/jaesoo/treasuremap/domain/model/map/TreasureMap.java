@@ -11,11 +11,11 @@ import java.util.List;
 import static com.jaesoo.treasuremap.domain.model.exception.MapValidationErrorCode.*;
 
 public class TreasureMap {
-    private int width;
-    private int height;
-    List<Explorer> explorers = new ArrayList<>();
+    private final int width;
+    private final int height;
+    private final List<Explorer> explorers = new ArrayList<>();
 
-    private MapCell[][] grid;
+    private final MapCell[][] grid;
 
     public TreasureMap(int width, int height) {
         this.width = width;
@@ -38,10 +38,6 @@ public class TreasureMap {
 
     public int getHeight() {
         return height;
-    }
-
-    public MapCell[][] getGrid() {
-        return grid;
     }
 
     public MapCell getCellAt(Position position) {

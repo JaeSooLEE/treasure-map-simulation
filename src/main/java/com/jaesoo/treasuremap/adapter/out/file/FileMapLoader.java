@@ -38,19 +38,7 @@ public class FileMapLoader implements FileMapLoaderPort {
         List<ExplorerDTO> explorers = new ArrayList<>();
 
         // Lire et filtrer les lignes
-        List<String> lines = new ArrayList<>();
-        try(BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
-            String line;
-            while((line = reader.readLine()) != null) {
-                line = line.strip();
-                if(line.isEmpty() || line.startsWith("#")) {
-                    continue;
-                }
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Erreur de lecture de fichier " + inputPath, e);
-        }
+        List<String> lines = readAndFilterLines(inputPath);
 
         // On parse les lignes
         for(String currentLine : lines) {
@@ -103,5 +91,22 @@ public class FileMapLoader implements FileMapLoaderPort {
         }
 
         return mapFactory.create(width, height, mountains, treasures, explorers);
+    }
+
+    public List<String> readAndFilterLines(String inputPath) {
+        List<String> lines = new ArrayList<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(inputPath))) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                line = line.strip();
+                if(line.isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+                lines.add(line);
+            }
+            return lines;
+        } catch (IOException e) {
+            throw new RuntimeException("Erreur de lecture de fichier " + inputPath, e);
+        }
     }
 }

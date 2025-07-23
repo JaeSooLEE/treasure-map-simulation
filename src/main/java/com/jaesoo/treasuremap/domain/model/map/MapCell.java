@@ -1,7 +1,7 @@
 package com.jaesoo.treasuremap.domain.model.map;
 
 public class MapCell {
-    private TerrainType terrainType;
+    private final TerrainType terrainType;
     private int treasureCount;
     private final CellOccupancy occupancy = new CellOccupancy();
 

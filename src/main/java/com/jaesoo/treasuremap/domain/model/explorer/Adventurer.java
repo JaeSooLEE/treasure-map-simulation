@@ -7,7 +7,6 @@ import com.jaesoo.treasuremap.domain.model.map.TerrainType;
 import com.jaesoo.treasuremap.domain.model.strategy.DefaultMovementStrategy;
 import com.jaesoo.treasuremap.domain.model.strategy.MovementStrategy;
 
-import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 

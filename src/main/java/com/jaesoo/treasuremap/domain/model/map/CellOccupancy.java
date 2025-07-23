@@ -10,10 +10,6 @@ public class CellOccupancy {
 
     private final Set<Explorer> occupants = new HashSet<>();
 
-    public Set<Explorer> getCurrentOccupants() {
-        return Collections.unmodifiableSet(occupants);
-    }
-
     public void enter(Explorer explorer) {
         occupants.add(explorer);
     }

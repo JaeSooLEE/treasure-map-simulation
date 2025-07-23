@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MapFactoryImpl implements MapFactory{
 
-    private ExplorerFactory explorerFactory;
+    private final ExplorerFactory explorerFactory;
 
     public MapFactoryImpl(ExplorerFactory explorerFactory) {
         this.explorerFactory = explorerFactory;
@@ -22,12 +22,12 @@ public class MapFactoryImpl implements MapFactory{
     @Override
     public TreasureMap create(int width, int height, List<MountainDTO> mountains, List<TreasureDTO> treasures, List<ExplorerDTO> explorers) {
         TreasureMap resultMap = new TreasureMap(width, height);
-        mountains.forEach(mountain -> {
-            resultMap.setCellAt(new MapCell(TerrainType.MOUNTAIN, 0), mountain.x(), mountain.y());
-        });
-        treasures.forEach(treasure -> {
-            resultMap.getCellAt(new Position(treasure.x(), treasure.y())).setTreasureCount(treasure.count());
-        });
+        mountains.forEach(mountain ->
+            resultMap.setCellAt(new MapCell(TerrainType.MOUNTAIN, 0), mountain.x(), mountain.y())
+        );
+        treasures.forEach(treasure ->
+            resultMap.getCellAt(new Position(treasure.x(), treasure.y())).setTreasureCount(treasure.count())
+        );
         explorers.forEach(e -> {
             Explorer explorer = explorerFactory.create(e);
             resultMap.addExplorer(explorer);
