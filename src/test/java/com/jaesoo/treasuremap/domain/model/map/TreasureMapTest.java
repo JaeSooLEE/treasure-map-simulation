@@ -48,7 +48,7 @@ public class TreasureMapTest {
         Explorer explorer = new Adventurer("John", position, Orientation.N, new LinkedList<>());
         assertThatThrownBy(() -> map.addExplorer(explorer))
                 .isInstanceOf(InvalidExplorerPlacementException.class)
-                .hasMessageContaining("Invalid Explorer starting position");
+                .hasMessageContaining("Invalid explorer starting position");
     }
 
     @Test

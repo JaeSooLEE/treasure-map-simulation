@@ -27,7 +27,7 @@ public class ExplorerFactoryImplTest {
         assertThat(explorer.getOrientation()).isEqualTo(Orientation.S);
         assertThat(explorer.getNextAction()).isEqualTo(Action.A);
         assertThat(explorer.getNextAction()).isEqualTo(Action.A);
-        assertThat(explorer.getNextAction()).isEqualTo(Action.A);
+        assertThat(explorer.getNextAction()).isEqualTo(Action.G);
         assertThat(explorer).isInstanceOf(Adventurer.class);
 
 
