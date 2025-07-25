@@ -7,6 +7,10 @@ import com.jaesoo.treasuremap.domain.model.geometry.Orientation;
 import com.jaesoo.treasuremap.domain.model.geometry.Position;
 
 
+/**
+ * Comportement générique d’un explorateur:
+ * peut se déplacer, tourner, collecter des trésors et décider de l’accessibilité d’une cellule.
+ */
 public interface Explorer extends CellAccessPolicy, Turnable, Movable {
     String getName();
     Position getPosition();

@@ -1,5 +1,11 @@
 package com.jaesoo.treasuremap.domain.model.geometry;
 
+
+/**
+ * Représente une direction cardinale sur la carte:
+ * Nord, Est, Sud, Ouest.
+ * Chaque orientation définit un delta (dx, dy) pour le déplacement d’une case, et fournit les orientations suivant un virage à gauche ou à droite.
+ */
 public enum Orientation {
     N(0, -1), E(1, 0), S(0, 1), W(-1, 0);
 

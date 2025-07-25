@@ -22,7 +22,9 @@ public class SimulationRunnerImpl implements SimulationRunner {
     }
 
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void runSimulation(String inputPath, String outputPath) {
         TreasureMap map = mapLoader.loadMap(inputPath);

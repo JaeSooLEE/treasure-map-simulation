@@ -19,6 +19,9 @@ public class MapFactoryImpl implements MapFactory{
         this.explorerFactory = explorerFactory;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public TreasureMap create(int width, int height, List<MountainDTO> mountains, List<TreasureDTO> treasures, List<ExplorerDTO> explorers) {
         TreasureMap resultMap = new TreasureMap(width, height);

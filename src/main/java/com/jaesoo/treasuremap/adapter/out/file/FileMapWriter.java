@@ -12,8 +12,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Implémentation de {@link MapWriterPort} qui génère un fichier texte reprenant les lignes C, M, T, A dans l'ordre et le format attendu.
+ */
 public class FileMapWriter implements MapWriterPort {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeMap(TreasureMap map, String outputPath) {
         Path path = Path.of(outputPath);
@@ -22,17 +28,22 @@ public class FileMapWriter implements MapWriterPort {
             writer.newLine();
 
             for (int x = 0; x < map.getWidth(); x++) {
-                for(int y = 0; y < map.getHeight(); y++) {
+                for (int y = 0; y < map.getHeight(); y++) {
                     MapCell cell = map.getCellAt(new Position(x, y));
                     if (cell.getTerrainType() == TerrainType.MOUNTAIN) {
                         writer.write("M - " + x + " - " + y);
                         writer.newLine();
                     }
+                }
+            }
+            for (int x = 0; x < map.getWidth(); x++) {
+                for (int y = 0; y < map.getHeight(); y++) {
+                    MapCell cell = map.getCellAt(new Position(x, y));
                     int treasureCount = cell.getTreasureCount();
                     if (treasureCount > 0) {
                         writer.write("T - " + x + " - " + y + " - " + treasureCount);
                         writer.newLine();
-                   }
+                    }
                 }
             }
 

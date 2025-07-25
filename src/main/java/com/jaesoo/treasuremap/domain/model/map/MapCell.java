@@ -1,5 +1,13 @@
 package com.jaesoo.treasuremap.domain.model.map;
 
+import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
+
+/**
+ * Représente une case de la carte:
+ * un type de terrain ({@link TerrainType}) – plaine, montagne
+ * un nombre de trésors présents
+ * une occupation par des {@link Explorer}
+*/
 public class MapCell {
     private final TerrainType terrainType;
     private int treasureCount;

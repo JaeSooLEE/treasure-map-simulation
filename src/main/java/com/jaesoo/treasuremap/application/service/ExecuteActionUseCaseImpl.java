@@ -6,6 +6,12 @@ import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import com.jaesoo.treasuremap.domain.model.map.TreasureMap;
 
 public class ExecuteActionUseCaseImpl implements ExecuteActionUseCase {
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void executeAction(Explorer explorer, TreasureMap map) {
         Action action = explorer.getNextAction();
         if (action == null) {

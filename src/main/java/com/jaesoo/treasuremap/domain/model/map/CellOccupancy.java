@@ -5,6 +5,11 @@ import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ * Gère l’occupation d’une {@link MapCell}:
+ * tests d'accès selon la politique d'accès de chaque explorateur.
+ */
 public class CellOccupancy {
 
     private final Set<Explorer> occupants = new HashSet<>();

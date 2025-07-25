@@ -11,6 +11,10 @@ import java.util.List;
 
 import static com.jaesoo.treasuremap.domain.model.exception.map.MapValidationErrorCode.*;
 
+/**
+ * Représente la carte de jeu, grille de {@link MapCell} sur laquelle
+ * des explorateurs peuvent se déplacer et collecter des trésors.
+ */
 public class TreasureMap {
     private final int width;
     private final int height;
@@ -49,6 +53,14 @@ public class TreasureMap {
         grid[x][y] = cell;
     }
 
+
+    /**
+     * Place un explorateur sur la carte en son point de départ.
+     * Vérifie l’accessibilité (pas de montagne, pas d’occupation illégale).
+     *
+     * @param explorer explorateur à ajouter
+     * @throws InvalidExplorerPlacementException si la position est invalide ou inaccessible
+     */
     public void addExplorer(Explorer explorer) {
         Position startingPosition = explorer.getPosition();
         validate(startingPosition);
@@ -86,6 +98,14 @@ public class TreasureMap {
     }
 
 
+
+    /**
+     * Déplace l’explorateur d’une case selon sa sa stratégie de mouvement.
+     * Gère la collecte de trésor, le blocage par montagnes ou bord de carte.
+     *
+     * @param explorer explorateur à déplacer
+     * @throws InvalidMapException si le déplacement sort de la carte
+     */
     public void moveExplorer(Explorer explorer) {
         Position targetPosition = explorer.getNextPosition();
         validate(targetPosition);
@@ -109,6 +129,11 @@ public class TreasureMap {
         }
     }
 
+    /**
+     * Valide la cohérence interne de la grille (null, dimensions, cellules).
+     *
+     * @throws InvalidMapException en cas d’incohérence
+     */
     public void validate() {
         validateNotNull(grid, NULL_GRID, 0, 0);
         validateEqual(grid.length, width, INVALID_WIDTH, 0, 0);

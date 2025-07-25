@@ -10,6 +10,9 @@ import com.jaesoo.treasuremap.domain.model.strategy.MovementStrategy;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * Type basique d'un explorateur.
+ */
 public class Adventurer implements Explorer{
 
     private final String name;

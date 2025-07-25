@@ -38,7 +38,7 @@ class SimulationRunnerIntegrationTest {
         List<String> lines = Files.readAllLines(output);
         assertThat(lines)
                 .hasSize(4)
-                .containsExactlyInAnyOrder(
+                .containsExactly(
                         "C - 4 - 2",
                         "M - 2 - 0",
                         "T - 2 - 1 - 1",

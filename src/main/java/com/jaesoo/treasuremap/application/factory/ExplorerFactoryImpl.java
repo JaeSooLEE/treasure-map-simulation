@@ -8,6 +8,10 @@ import com.jaesoo.treasuremap.domain.model.geometry.Position;
 
 public class ExplorerFactoryImpl implements ExplorerFactory {
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Explorer create(ExplorerDTO explorerData) {
         ExplorerType type = explorerData.type();

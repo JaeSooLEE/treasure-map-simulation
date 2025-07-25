@@ -22,6 +22,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+/**
+ * Lecteur de carte depuis un fichier texte selon le format spécifié (lignes C, M, T, A).
+ * Extrait des DTO, les valide, puis délègue à une {@link MapFactory}.
+ */
 public class FileMapLoader implements MapLoaderPort {
 
     private final Validator validator;
@@ -32,6 +36,9 @@ public class FileMapLoader implements MapLoaderPort {
         this.mapFactory = mapFactory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TreasureMap loadMap(String inputPath) {
 

@@ -71,7 +71,7 @@ public class FileMapWriterTest {
 
         List<String> lines = Files.readAllLines(output);
         assertThat(lines).hasSize(4);
-        assertThat(lines).containsExactlyInAnyOrder(
+        assertThat(lines).containsExactly(
                 "C - 2 - 2",
                 "M - 1 - 0",
                 "T - 0 - 1 - 3",
