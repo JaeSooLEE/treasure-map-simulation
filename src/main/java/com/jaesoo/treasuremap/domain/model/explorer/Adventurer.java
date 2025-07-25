@@ -15,11 +15,11 @@ public class Adventurer implements Explorer{
     private final String name;
     private Position position;
     private Orientation orientation;
-    private final Queue<Character> actions;
+    private final Queue<Action> actions;
     private final MovementStrategy movementStrategy = new DefaultMovementStrategy();
     private int treasureCount = 0;
 
-    public Adventurer(String name, Position position, Orientation orientation, Queue<Character> actions) {
+    public Adventurer(String name, Position position, Orientation orientation, Queue<Action> actions) {
         this.name = name;
         this.position = position;
         this.orientation = orientation;
@@ -47,7 +47,7 @@ public class Adventurer implements Explorer{
     }
 
     @Override
-    public Character getNextAction() {
+    public Action getNextAction() {
         return actions.poll();
     }
 

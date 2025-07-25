@@ -1,23 +1,16 @@
 package com.jaesoo.treasuremap.domain.model.geometry;
 
-public class Position {
-    private final int x;
-    private final int y;
+import java.util.Objects;
 
-    public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+public record Position(int x, int y) {
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Position {
+        if (x < 0 || y < 0)
+            throw new IllegalArgumentException("Coordinates must be positive");
     }
 
     public Position simpleMovement(Orientation orientation) {
+        Objects.requireNonNull(orientation, "Orientation null");
         return new Position(x + orientation.getDx(), y + orientation.getDy());
     }
 }

@@ -1,4 +1,4 @@
-package com.jaesoo.treasuremap.adapter.out.file.dto;
+package com.jaesoo.treasuremap.application.port.in.dto;
 
 import jakarta.validation.constraints.Min;
 

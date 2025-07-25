@@ -12,7 +12,7 @@ public interface Explorer extends CellAccessPolicy, Turnable, Movable {
     Position getPosition();
     Orientation getOrientation();
     boolean hasActions();
-    Character getNextAction();
+    Action getNextAction();
     void obtainTreasure();
     int getCollectedTreasureCount();
 }

@@ -1,4 +1,4 @@
-package com.jaesoo.treasuremap.domain.model.exception;
+package com.jaesoo.treasuremap.domain.model.exception.map;
 
 public class InvalidMapException extends RuntimeException{
     private final MapValidationErrorCode errorCode;

@@ -2,8 +2,8 @@ package com.jaesoo.treasuremap.application.service;
 
 import com.jaesoo.treasuremap.application.port.in.ExecuteActionUseCase;
 import com.jaesoo.treasuremap.application.port.in.SimulationRunner;
-import com.jaesoo.treasuremap.application.port.out.FileWriterPort;
-import com.jaesoo.treasuremap.application.port.out.FileMapLoaderPort;
+import com.jaesoo.treasuremap.application.port.out.MapWriterPort;
+import com.jaesoo.treasuremap.application.port.out.MapLoaderPort;
 import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import com.jaesoo.treasuremap.domain.model.map.TreasureMap;
 
@@ -11,12 +11,12 @@ import java.util.List;
 
 public class SimulationRunnerImpl implements SimulationRunner {
 
-    private final FileMapLoaderPort mapLoader;
-    private final FileWriterPort fileWriter;
+    private final MapLoaderPort mapLoader;
+    private final MapWriterPort mapWriter;
     private final ExecuteActionUseCase executeActionCase;
 
-    public SimulationRunnerImpl(FileMapLoaderPort mapLoader, FileWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
-        this.fileWriter = fileWriter;
+    public SimulationRunnerImpl(MapLoaderPort mapLoader, MapWriterPort mapWriter, ExecuteActionUseCase executeActionCase) {
+        this.mapWriter = mapWriter;
         this.executeActionCase = executeActionCase;
         this.mapLoader = mapLoader;
     }
@@ -37,6 +37,6 @@ public class SimulationRunnerImpl implements SimulationRunner {
                 }
             }
         }
-        fileWriter.writeMap(map, outputPath);
+        mapWriter.writeMap(map, outputPath);
     }
 }

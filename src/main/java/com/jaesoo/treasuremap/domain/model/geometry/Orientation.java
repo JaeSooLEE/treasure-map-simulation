@@ -36,14 +36,4 @@ public enum Orientation {
             case W -> N;
         };
     }
-
-    public static Orientation fromChar(char c) {
-        return switch (c) {
-            case 'N' -> N;
-            case 'S' -> S;
-            case 'E' -> E;
-            case 'O' -> W;
-            default  -> throw new IllegalArgumentException("Orientation invalide : " + c);
-        };
-    }
 }

@@ -1,14 +1,15 @@
 package com.jaesoo.treasuremap.domain.model.map;
 
-import com.jaesoo.treasuremap.domain.model.exception.InvalidMapException;
-import com.jaesoo.treasuremap.domain.model.exception.MapValidationErrorCode;
+import com.jaesoo.treasuremap.domain.model.exception.explorer.InvalidExplorerPlacementException;
+import com.jaesoo.treasuremap.domain.model.exception.map.InvalidMapException;
+import com.jaesoo.treasuremap.domain.model.exception.map.MapValidationErrorCode;
 import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import com.jaesoo.treasuremap.domain.model.geometry.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.jaesoo.treasuremap.domain.model.exception.MapValidationErrorCode.*;
+import static com.jaesoo.treasuremap.domain.model.exception.map.MapValidationErrorCode.*;
 
 public class TreasureMap {
     private final int width;
@@ -20,9 +21,9 @@ public class TreasureMap {
     public TreasureMap(int width, int height) {
         this.width = width;
         this.height = height;
-        grid =  new MapCell[width][height];
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+        grid = new MapCell[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 setCellAt(new MapCell(TerrainType.PLAIN, 0), x, y);
             }
         }
@@ -41,7 +42,7 @@ public class TreasureMap {
     }
 
     public MapCell getCellAt(Position position) {
-        return grid[position.getX()][position.getY()];
+        return grid[position.x()][position.y()];
     }
 
     public void setCellAt(MapCell cell, int x, int y) {
@@ -52,23 +53,26 @@ public class TreasureMap {
         Position startingPosition = explorer.getPosition();
         validate(startingPosition);
         MapCell startingCell = getCellAt(explorer.getPosition());
-        if(canEnter(startingCell, explorer)) {
+        if (canEnter(startingCell, explorer)) {
             explorers.add(explorer);
             enterAndCollect(startingCell, explorer);
+        } else {
+            throw new InvalidExplorerPlacementException("Invalid explorer starting position : " + explorer.getName() + ", (" + startingPosition.x() + ", " + startingPosition.y() + ")");
         }
     }
 
     public boolean isOutOfBounds(Position position) {
-        return position.getX() >= width || position.getY() >= height;
+        return position.x() >= width || position.y() >= height;
     }
 
     private void validate(Position position) {
         if (isOutOfBounds(position)) {
             throw new InvalidMapException(
-                    OUT_OF_BOUNDS, position.getX(), position.getY()
+                    OUT_OF_BOUNDS, position.x(), position.y()
             );
         }
     }
+
     private boolean canEnter(MapCell cell, Explorer explorer) {
         return explorer.canAccess(cell)
                 && cell.getOccupancy().canBeOccupiedBy(explorer);
@@ -86,7 +90,7 @@ public class TreasureMap {
         Position targetPosition = explorer.getNextPosition();
         validate(targetPosition);
         MapCell targetCell = getCellAt(targetPosition);
-         if(canEnter(targetCell, explorer)) {
+        if (canEnter(targetCell, explorer)) {
             getCellAt(explorer.getPosition()).getOccupancy().leave(explorer);
             explorer.move(targetPosition);
             enterAndCollect(targetCell, explorer);
@@ -94,7 +98,7 @@ public class TreasureMap {
     }
 
     private void validateNotNull(Object obj, MapValidationErrorCode code, int x, int y) {
-        if(obj == null) {
+        if (obj == null) {
             throw new InvalidMapException(code, x, y);
         }
     }

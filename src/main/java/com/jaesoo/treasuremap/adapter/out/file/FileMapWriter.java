@@ -1,6 +1,6 @@
 package com.jaesoo.treasuremap.adapter.out.file;
 
-import com.jaesoo.treasuremap.application.port.out.FileWriterPort;
+import com.jaesoo.treasuremap.application.port.out.MapWriterPort;
 import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
 import com.jaesoo.treasuremap.domain.model.geometry.Position;
 import com.jaesoo.treasuremap.domain.model.map.MapCell;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class FileWriter implements FileWriterPort {
+public class FileMapWriter implements MapWriterPort {
 
     @Override
     public void writeMap(TreasureMap map, String outputPath) {
@@ -37,18 +37,17 @@ public class FileWriter implements FileWriterPort {
             }
 
             for (Explorer explorer : map.getExplorers()) {
-                // format : A - name - x - y - orientation - trésorsRamassés
                 writer.write("A - "
                         + explorer.getName() + " - "
-                        + explorer.getPosition().getX() + " - "
-                        + explorer.getPosition().getY() + " - "
+                        + explorer.getPosition().x() + " - "
+                        + explorer.getPosition().y() + " - "
                         + explorer.getOrientation() + " - "
                         + explorer.getCollectedTreasureCount()
                 );
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException("Impossible d'écrire le fichier de résultat : " + outputPath, e);
+            throw new RuntimeException("Cannot write result file: " + outputPath, e);
         }
     }
 }
