@@ -22,5 +22,5 @@ Un simulateur d’exploration de carte en Spring Boot.
 - Integration test
 
 **Build & run**
--./mvnw clean package
--java -jar target/treasuremap-0.0.1-SNAPSHOT.jar input.txt output.txt
+- ./mvnw clean package
+- java -jar target/treasuremap-0.0.1-SNAPSHOT.jar input.txt output.txt
