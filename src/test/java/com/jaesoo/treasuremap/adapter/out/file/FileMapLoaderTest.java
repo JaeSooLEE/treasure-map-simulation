@@ -65,7 +65,7 @@ public class FileMapLoaderTest {
         Explorer explorer = map.getExplorers().getFirst();
 
         assertThat(explorer.getName()).isEqualTo("Kenny");
-        assertThat(explorer.getPosition()).isEqualTo(new Position(0,0));
+        assertThat(explorer.getPosition()).isEqualTo(new Position(0, 0));
         assertThat(explorer.getOrientation()).isEqualTo(Orientation.E);
         assertThat(explorer.hasActions()).isTrue();
         assertThat(explorer.getNextAction()).isEqualTo(Action.A);
@@ -76,11 +76,25 @@ public class FileMapLoaderTest {
     @Test
     void loadMapThrowsOnInvalidLine(@TempDir Path tempDir) throws IOException {
         Path tmp = tempDir.resolve("bad.txt");
-        Files.writeString(tmp, "X - invalid - line");
+        Files.writeString(tmp, """
+                X - invalid - line
+                C - 2 - 3
+                """);
 
         assertThatThrownBy(() -> loader.loadMap(tmp.toString()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Unrecognized input field ");
     }
+
+    @Test
+    void loadMapThrowsOnMissingDimensions(@TempDir Path tempDir) throws IOException {
+        Path tmp = tempDir.resolve("bad.txt");
+        Files.writeString(tmp, "X - invalid - line");
+
+        assertThatThrownBy(() -> loader.loadMap(tmp.toString()))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Map dimensions missing");
+    }
+
 
 }
