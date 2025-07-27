@@ -1,7 +1,9 @@
 package com.jaesoo.treasuremap.adapter.out.file;
 
-import com.jaesoo.treasuremap.application.factory.ExplorerFactoryImpl;
-import com.jaesoo.treasuremap.application.factory.MapFactoryImpl;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.AdventurerHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.LineHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.MountainHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.TreasureHandler;
 import com.jaesoo.treasuremap.application.port.out.MapLoaderPort;
 import com.jaesoo.treasuremap.domain.model.explorer.Action;
 import com.jaesoo.treasuremap.domain.model.explorer.Explorer;
@@ -18,6 +20,8 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -28,8 +32,12 @@ public class FileMapLoaderTest {
 
     @BeforeEach
     void setUp() {
+        Map<String, LineHandler> handlersMap = new HashMap<>();
+        handlersMap.put("A", new AdventurerHandler());
+        handlersMap.put("T", new TreasureHandler());
+        handlersMap.put("M", new MountainHandler());
         try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            loader = new FileMapLoader(factory.getValidator(), new MapFactoryImpl(new ExplorerFactoryImpl()));
+            loader = new FileMapLoader(factory.getValidator(), handlersMap);
         }
     }
 

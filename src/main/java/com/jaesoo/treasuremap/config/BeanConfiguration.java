@@ -2,10 +2,10 @@ package com.jaesoo.treasuremap.config;
 
 import com.jaesoo.treasuremap.adapter.out.file.FileMapWriter;
 import com.jaesoo.treasuremap.adapter.out.file.FileMapLoader;
-import com.jaesoo.treasuremap.application.factory.ExplorerFactory;
-import com.jaesoo.treasuremap.application.factory.ExplorerFactoryImpl;
-import com.jaesoo.treasuremap.application.factory.MapFactory;
-import com.jaesoo.treasuremap.application.factory.MapFactoryImpl;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.AdventurerHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.LineHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.MountainHandler;
+import com.jaesoo.treasuremap.adapter.out.file.lineHandlers.TreasureHandler;
 import com.jaesoo.treasuremap.application.port.in.ExecuteActionUseCase;
 import com.jaesoo.treasuremap.application.port.in.SimulationRunner;
 import com.jaesoo.treasuremap.application.port.out.MapWriterPort;
@@ -18,29 +18,48 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Configuration
 public class BeanConfiguration {
 
     @Bean
     @Profile("file")
-    public MapLoaderPort mapLoaderPort(Validator validator, MapFactory mapFactory) {
-        return new FileMapLoader(validator, mapFactory);
+    public Map<String, LineHandler> lineHandlers(List<LineHandler> allHandlers) {
+        return allHandlers.stream().collect(Collectors.toMap(LineHandler::getRecordType, h -> h));
+    }
+
+
+    @Bean
+    @Profile("file")
+    public MapLoaderPort mapLoaderPort(Validator validator,Map<String, LineHandler> lineHandlers) {
+        return new FileMapLoader(validator, lineHandlers);
     }
 
     @Bean
     @Profile("file")
-    public MapWriterPort fileWriterPort() {
+    public LineHandler mountainHandler() {
+        return new MountainHandler();
+    }
+
+    @Bean
+    @Profile("file")
+    public LineHandler treasureHandler() {
+        return new TreasureHandler();
+    }
+
+    @Bean
+    @Profile("file")
+    public LineHandler AdventurerHandler() {
+        return new AdventurerHandler();
+    }
+
+    @Bean
+    @Profile("file")
+    public MapWriterPort fileMapWriter() {
         return new FileMapWriter();
-    }
-
-    @Bean
-    public ExplorerFactory explorerFactory() {
-        return new ExplorerFactoryImpl();
-    }
-
-    @Bean
-    public MapFactory mapFactory(ExplorerFactory explorerFactory) {
-        return new MapFactoryImpl(explorerFactory);
     }
 
     @Bean
@@ -49,8 +68,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public SimulationRunner simulationRunner(MapLoaderPort mapLoader, MapWriterPort fileWriter, ExecuteActionUseCase executeActionCase) {
-        return new SimulationRunnerImpl(mapLoader, fileWriter, executeActionCase);
+    public SimulationRunner simulationRunner(MapLoaderPort mapLoader, MapWriterPort fileMapWriter, ExecuteActionUseCase executeActionCase) {
+        return new SimulationRunnerImpl(mapLoader, fileMapWriter, executeActionCase);
     }
 
     @Bean
